@@ -1,7 +1,7 @@
 using Cinch.Reloaded.Services.Interfaces;
 using MahApps.Metro.Controls.Dialogs;
 
-namespace Intaller.Wpf.Services
+namespace Installer.Wpf.Core.Services
 {
     public class ViewServices
     {

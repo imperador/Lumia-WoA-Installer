@@ -5,7 +5,7 @@ using System.Linq;
 using Cinch.Reloaded.Services.Interfaces;
 using Serilog;
 
-namespace Intaller.Wpf.Services
+namespace Installer.Wpf.Core.Services
 {
     public static class FilePickMixin
     {

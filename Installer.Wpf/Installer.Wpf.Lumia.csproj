@@ -77,13 +77,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BusyButton.cs" />
     <Compile Include="CommandWrapper.cs" />
     <Compile Include="CompositionRoot.cs" />
     <Compile Include="ViewModels\DeployerItem.cs" />
     <Compile Include="ViewModels\DriverPackageImporterItem.cs" />
     <Compile Include="ViewModels\DualBootViewModel.cs" />
-    <Compile Include="Services\FilePickMixin.cs" />
     <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="Views\Parts\DualBootPart.xaml.cs">
       <DependentUpon>DualBootPart.xaml</DependentUpon>
@@ -114,7 +112,6 @@
     <Compile Include="Views\TextViewerWindow.xaml.cs">
       <DependentUpon>TextViewerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\ViewServices.cs" />
     <Compile Include="ViewModels\WimMetadataViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="Views\Parts\DualBootPart.xaml">
@@ -156,10 +153,6 @@
     <Page Include="Views\TextViewerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +223,10 @@
     <ProjectReference Include="..\Installer.Core\Installer.Core.csproj">
       <Project>{97CF13C2-67D8-4BDF-80D3-00E31685603F}</Project>
       <Name>Installer.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Installer.Wpf.Core\Installer.Wpf.Core.csproj">
+      <Project>{ad8ea86c-af60-4ccf-9caa-07bbf5e039ec}</Project>
+      <Name>Installer.Wpf.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

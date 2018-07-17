@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:wpf="clr-namespace:Intaller.Wpf"
              xmlns:viewModels="clr-namespace:Intaller.Wpf.ViewModels"
+             xmlns:core="clr-namespace:Installer.Wpf.Core;assembly=Installer.Wpf.Core"
              mc:Ignorable="d" 
              x:Name="Root"
     
@@ -12,7 +13,7 @@
 
     <StackPanel Margin="16">
         <TextBlock Margin="8,8,8,18" TextWrapping="Wrap">You can import drive packages into the application so new Windows deployments will use them. Please, notice that this <Bold>will not inject the drivers</Bold>, will <Bold>stage them</Bold> for further deployments (inside the Windows Deployment section)</TextBlock>
-        <wpf:BusyButton 
+        <core:BusyButton 
             VerticalAlignment="Center" HorizontalAlignment="Center" Height="50"
             Content="Import Driver package" Command="{Binding ImportDriverPackageWrapper.Command}"
             IsBusy="{Binding ImportDriverPackageWrapper.IsExecuting}" Image="/Assets/gears.png" />
