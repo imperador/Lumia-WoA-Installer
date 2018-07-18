@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer.Wpf.Core", "Insta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer.Wpf.Raspberry", "Installer.Wpf.Raspberry\Installer.Wpf.Raspberry.csproj", "{47C79FDD-FBDC-4382-8780-7B9E77C4A4F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer.UI", "Installer.UI\Installer.UI.csproj", "{D15DB86E-52F8-48A6-9F46-276E34BD22AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{47C79FDD-FBDC-4382-8780-7B9E77C4A4F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47C79FDD-FBDC-4382-8780-7B9E77C4A4F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47C79FDD-FBDC-4382-8780-7B9E77C4A4F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D15DB86E-52F8-48A6-9F46-276E34BD22AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D15DB86E-52F8-48A6-9F46-276E34BD22AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D15DB86E-52F8-48A6-9F46-276E34BD22AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D15DB86E-52F8-48A6-9F46-276E34BD22AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

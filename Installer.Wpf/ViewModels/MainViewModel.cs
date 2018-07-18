@@ -13,6 +13,7 @@ using DynamicData;
 using Installer.Core;
 using Installer.Core.Exceptions;
 using Installer.Core.Services.Wim;
+using Installer.UI;
 using Installer.Wpf.Core.Services;
 using Intaller.Wpf.Properties;
 using MahApps.Metro.Controls.Dialogs;
@@ -135,7 +136,7 @@ namespace Intaller.Wpf.ViewModels
         {
             var extensions = driverPackageImporterItems.Select(x => $"*.{x.Extension}");
 
-            var fileName = viewServices.OpenFileService.Pick(new List<(string, IEnumerable<string>)> { ("Driver package", extensions) }, () => Settings.Default.DriverPackFolder, fn => Settings.Default.DriverPackFolder = fn);
+            var fileName = viewServices.FilePicker.Pick(new List<(string, IEnumerable<string>)> { ("Driver package", extensions) }, () => Settings.Default.DriverPackFolder, fn => Settings.Default.DriverPackFolder = fn);
 
             if (fileName == null)
             {
@@ -187,9 +188,17 @@ namespace Intaller.Wpf.ViewModels
             });
         }
 
-        private IObservable<WimMetadataViewModel> PickWimFileObs =>
-            Observable.Return(viewServices.OpenFileService.Pick(new List<(string, IEnumerable<string>)> { ("WIM files", new[] { "install.wim" }) },
-                () => Settings.Default.WimFolder, x => Settings.Default.WimFolder = x)).Where(x => x != null).Select(LoadWimMetadata);
+        private IObservable<WimMetadataViewModel> PickWimFileObs
+        {
+            get
+            {
+                var value = viewServices.FilePicker.Pick(new List<(string, IEnumerable<string>)> {("WIM files", new[] {"install.wim"})},
+                    () => Settings.Default.WimFolder, x => Settings.Default.WimFolder = x);
+
+                return Observable.Return(value).Where(x => x != null)
+                    .Select(LoadWimMetadata);
+            }
+        }
 
         public WimMetadataViewModel WimMetadata => pickWimFileObs.Value;
 

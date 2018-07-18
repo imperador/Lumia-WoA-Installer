@@ -43,7 +43,7 @@ namespace Intaller.Wpf
             };
 
             var mainViewModel = new MainViewModel(logEvents, deployersItems, importerItems,
-                new ViewServices(new WpfOpenFileService(), DialogCoordinator.Instance, visualizerService),
+                new ViewServices(new WpfOpenFileService(), DialogCoordinator.Instance, visualizerService, new FilePicker()),
                 async () => new Phone(await api.GetPhoneDisk()));
             return mainViewModel;
         }

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusyButton.cs" />
+    <Compile Include="Services\FilePicker.cs" />
     <Compile Include="Services\FilePickMixin.cs" />
     <Compile Include="Services\ViewServices.cs" />
     <Page Include="Themes\Generic.xaml">
@@ -92,6 +93,12 @@
       <Version>1.0.7</Version>
     </PackageReference>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Installer.UI\Installer.UI.csproj">
+      <Project>{D15DB86E-52F8-48A6-9F46-276E34BD22AB}</Project>
+      <Name>Installer.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
