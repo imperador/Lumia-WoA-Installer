@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:viewModels1="clr-namespace:Intaller.Wpf.ViewModels;assembly=Installer.ViewModels"
-        mc:Ignorable="d"
+                 xmlns:viewModels1="clr-namespace:Intaller.Wpf.ViewModels;assembly=Installer.ViewModels"
+                 mc:Ignorable="d"
         Title="{Binding Title}" Height="450" Width="800" WindowStartupLocation="CenterOwner"
         d:DataContext="{d:DesignInstance viewModels1:MessageViewModel}">
     <ScrollViewer>

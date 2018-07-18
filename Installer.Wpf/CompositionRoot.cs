@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using Installer.Core;
 using Installer.Core.FullFx;
+using Installer.Core.Lumia;
 using Installer.Core.Services;
+using Installer.UI;
 using Installer.ViewModels;
 using Installer.Wpf.Core;
 using Installer.Wpf.Core.Services;
@@ -23,7 +25,7 @@ namespace Intaller.Wpf
     {
         public static MainViewModel GetMainViewModel(IObservable<LogEvent> logEvents)
         {
-            IDictionary<PhoneModel, IDeployer> deployerDict = new Dictionary<PhoneModel, IDeployer>
+            IDictionary<PhoneModel, IDeployer<Phone>> deployerDict = new Dictionary<PhoneModel, IDeployer<Phone>>
             {
                 {PhoneModel.Lumia950Xl, GetDeployer(Path.Combine("Files", "Lumia 950 XL"))},
                 {PhoneModel.Lumia950, GetDeployer(Path.Combine("Files", "Lumia 950"))},
@@ -46,9 +48,9 @@ namespace Intaller.Wpf
             return mainViewModel;
         }
 
-        private static Deployer GetDeployer(string root)
+        private static LumiaDeployer GetDeployer(string root)
         {
-            return new Deployer(new CoreDeployer(root), new WindowsDeployer(new DismImageService(), new DriverPaths(root)) );
+            return new LumiaDeployer(new LumiaCoreDeployer(root), new LumiaWindowsDeployer(new DismImageService(), new DriverPaths(root)) );
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Installer.ViewModels;
-using Intaller.Wpf.Properties;
 
 namespace Installer.Wpf.Core
 {

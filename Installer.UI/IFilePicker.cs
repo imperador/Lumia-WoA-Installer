@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Installer.Wpf.Core.Services;
 
 namespace Installer.UI
 {

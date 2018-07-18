@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using ByteSizeLib;
 using Installer.Core.FileSystem;
+using Installer.Core.Services;
 using Installer.Core.Utils;
 using Serilog;
 
-namespace Installer.Core.Services
+namespace Installer.Core.Lumia
 {
-    public class WindowsDeployer : IWindowsDeployer
+    public class LumiaWindowsDeployer : IWindowsDeployer<Phone>
     {
         private static readonly ByteSize SpaceNeededForWindows = ByteSize.FromGigaBytes(18);
         private static readonly ByteSize ReservedPartitionSize = ByteSize.FromMegaBytes(200);
@@ -22,7 +23,7 @@ namespace Installer.Core.Services
         private readonly DriverPaths driverPaths;
 
 
-        public WindowsDeployer(IWindowsImageService windowsImageService, DriverPaths driverPaths)
+        public LumiaWindowsDeployer(IWindowsImageService windowsImageService, DriverPaths driverPaths)
         {
             this.windowsImageService = windowsImageService;
             this.driverPaths = driverPaths;
@@ -57,7 +58,7 @@ namespace Installer.Core.Services
             await volumes.Boot.Partition.SetGptType(PartitionType.Esp);
         }
 
-        private Task RemoveExistingWindowsPartitions(Phone phone)
+        private Task RemoveExistingWindowsPartitions(Device phone)
         {
             Log.Information("Cleaning existing Windows 10 ARM64 partitions...");
 
@@ -77,7 +78,7 @@ namespace Installer.Core.Services
             progressObserver?.OnNext(double.NaN);
         }
 
-        private async Task<WindowsVolumes> CreatePartitions(Phone phone)
+        private async Task<WindowsVolumes> CreatePartitions(Device phone)
         {
             Log.Information("Creating Windows partitions...");
 

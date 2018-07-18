@@ -5,13 +5,13 @@ using Installer.Core.Services;
 using Installer.Core.Utils;
 using Serilog;
 
-namespace Installer.Core
+namespace Installer.Core.Lumia
 {
-    public class CoreDeployer : ICoreDeployer
+    public class LumiaCoreDeployer : ICoreDeployer<Phone>
     {
         private readonly string rootFilesPath;
 
-        public CoreDeployer(string rootFilesPath)
+        public LumiaCoreDeployer(string rootFilesPath)
         {
             this.rootFilesPath = rootFilesPath;
         }

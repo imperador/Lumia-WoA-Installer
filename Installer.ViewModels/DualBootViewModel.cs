@@ -4,6 +4,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Installer.Core;
+using Installer.Core.Lumia;
 using Installer.UI;
 using Intaller.Wpf;
 using ReactiveUI;

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Installer.Core;
 using Installer.Core.FullFx;
+using Installer.Core.Lumia;
 using Xunit;
 
 namespace Application.Tests

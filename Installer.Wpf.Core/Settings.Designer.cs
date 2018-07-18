@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Intaller.Wpf.Properties {
+namespace Installer.Wpf.Core {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

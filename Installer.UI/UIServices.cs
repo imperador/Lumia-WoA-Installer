@@ -1,6 +1,4 @@
-using Installer.UI;
-
-namespace Installer.Wpf.Core.Services
+namespace Installer.UI
 {
     public class UIServices
     {

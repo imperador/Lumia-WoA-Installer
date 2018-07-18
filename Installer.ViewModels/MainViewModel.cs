@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 using DynamicData;
 using Installer.Core;
 using Installer.Core.Exceptions;
+using Installer.Core.Lumia;
 using Installer.Core.Services.Wim;
 using Installer.UI;
-using Installer.Wpf.Core.Services;
 using Intaller.Wpf;
 using Intaller.Wpf.ViewModels;
 using ReactiveUI;
@@ -128,7 +128,7 @@ namespace Installer.ViewModels
             set => this.RaiseAndSetIfChanged(ref selectedDeployerItem, value);
         }
 
-        private IDeployer SelectedDeployer => SelectedDeployerItem.Deployer;
+        private IDeployer<Phone> SelectedDeployer => SelectedDeployerItem.Deployer;
 
         public bool HasWim => hasWimHelper.Value;
 

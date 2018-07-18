@@ -1,4 +1,4 @@
-﻿ namespace Installer.Wpf.Core.Services
+﻿ namespace Installer.UI
 {
     public class FileTypeFilter
     {

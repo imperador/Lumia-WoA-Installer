@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Installer.Wpf.Core.Services;
 using Serilog;
 
 namespace Installer.UI

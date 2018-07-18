@@ -4,14 +4,14 @@ using Installer.Core.Exceptions;
 using Installer.Core.Services;
 using Serilog;
 
-namespace Installer.Core
+namespace Installer.Core.Lumia
 {
-    public class Deployer : IDeployer
+    public class LumiaDeployer : IDeployer<Phone>
     {
-        private readonly ICoreDeployer coreDeployer;
-        private readonly IWindowsDeployer windowsDeployer;
+        private readonly ICoreDeployer<Phone> coreDeployer;
+        private readonly IWindowsDeployer<Phone> windowsDeployer;
 
-        public Deployer(ICoreDeployer coreDeployer, IWindowsDeployer windowsDeployer)
+        public LumiaDeployer(ICoreDeployer<Phone> coreDeployer, IWindowsDeployer<Phone> windowsDeployer)
         {
             this.coreDeployer = coreDeployer;
             this.windowsDeployer = windowsDeployer;

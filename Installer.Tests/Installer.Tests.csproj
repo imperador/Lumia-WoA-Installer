@@ -100,6 +100,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Installer.Core.Lumia\Installer.Core.Lumia.csproj">
+      <Project>{BB117CF2-8461-4353-8F07-4D5E9A1459FB}</Project>
+      <Name>Installer.Core.Lumia</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Installer.Core\Installer.Core.csproj">
       <Project>{97cf13c2-67d8-4bdf-80d3-00e31685603f}</Project>
       <Name>Installer.Core</Name>

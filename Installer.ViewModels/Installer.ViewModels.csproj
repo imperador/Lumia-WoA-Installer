@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Installer.Core.Lumia\Installer.Core.Lumia.csproj" />
     <ProjectReference Include="..\Installer.Core\Installer.Core.csproj" />
     <ProjectReference Include="..\Installer.UI\Installer.UI.csproj" />
   </ItemGroup>
