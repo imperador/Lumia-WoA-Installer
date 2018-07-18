@@ -4,25 +4,27 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Installer.Core;
-using Installer.Core.FullFx;
-using MahApps.Metro.Controls.Dialogs;
+using Installer.UI;
+using Intaller.Wpf;
 using ReactiveUI;
 
-namespace Intaller.Wpf.ViewModels
+namespace Installer.ViewModels
 {
     public class DualBootViewModel : ReactiveObject
     {
+        private readonly Func<Task<Phone>> getPhone;
         private bool isCapable;
         private bool isEnabled;
         private bool isUpdated;
 
-        public DualBootViewModel(IDialogCoordinator dialogCoordinator)
+        public DualBootViewModel(IDialogService dialogService, Func<Task<Phone>> getPhone)
         {
+            this.getPhone = getPhone;
             var isChangingDualBoot = new Subject<bool>();
 
             UpdateStatusWrapper =
                 new CommandWrapper<Unit, DualBootStatus>(this, ReactiveCommand.CreateFromTask(GetStatus, isChangingDualBoot),
-                    dialogCoordinator);
+                    dialogService);
 
             UpdateStatusWrapper.Command.Subscribe(x =>
             {
@@ -37,10 +39,10 @@ namespace Intaller.Wpf.ViewModels
                 ReactiveCommand.CreateFromTask(EnableDualBoot,
                     this.WhenAnyValue(x => x.IsCapable, x => x.IsEnabled,
                             (isCapable, isEnabled) => isCapable && !isEnabled)
-                        .Merge(canChangeDualBoot)), dialogCoordinator);
+                        .Merge(canChangeDualBoot)), dialogService);
             EnableDualBootWrapper.Command.Subscribe(async _ =>
             {
-                await dialogCoordinator.ShowMessageAsync(this, "Done", "Dual Bool Enabled!");
+                await dialogService.ShowAlert(this, "Done", "Dual Bool Enabled!");
                 IsEnabled = !IsEnabled;
             });
 
@@ -48,11 +50,11 @@ namespace Intaller.Wpf.ViewModels
                 ReactiveCommand.CreateFromTask(DisableDualBoot,
                     this.WhenAnyValue(x => x.IsCapable, x => x.IsEnabled,
                             (isCapable, isEnabled) => isCapable && isEnabled)
-                        .Merge(canChangeDualBoot)), dialogCoordinator);
+                        .Merge(canChangeDualBoot)), dialogService);
 
             DisableDualBootWrapper.Command.Subscribe(async _ =>
             {
-                await dialogCoordinator.ShowMessageAsync(this, "Done", "Dual Boot Disabled!");
+                await dialogService.ShowAlert(this, "Done", "Dual Boot Disabled!");
                 IsEnabled = !IsEnabled;
             });
 
@@ -92,20 +94,19 @@ namespace Intaller.Wpf.ViewModels
 
         private async Task EnableDualBoot()
         {
-            
-            var phone = await Phone.Load(new LowLevelApi());
+            var phone = await getPhone();
             await phone.EnableDualBoot(true);
         }
 
         private async Task DisableDualBoot()
         {
-            var phone = await Phone.Load(new LowLevelApi());
+            var phone = await getPhone();
             await phone.EnableDualBoot(false);
         }
 
         private async Task<DualBootStatus> GetStatus()
         {
-            var phone = await Phone.Load(new LowLevelApi());
+            var phone = await getPhone();
             var status = await phone.GetDualBootStatus();
          
             return status;

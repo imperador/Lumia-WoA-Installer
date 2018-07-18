@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Cinch.Reloaded.Services.Implementation;
 using Installer.Core;
 using Installer.Core.FullFx;
 using Installer.Core.Services;
+using Installer.ViewModels;
+using Installer.Wpf.Core;
 using Installer.Wpf.Core.Services;
 using Intaller.Wpf.ViewModels;
 using Intaller.Wpf.Views;
@@ -22,9 +23,6 @@ namespace Intaller.Wpf
     {
         public static MainViewModel GetMainViewModel(IObservable<LogEvent> logEvents)
         {
-            var visualizerService = new ExtendedWpfUIVisualizerService();
-            visualizerService.Register("TextViewer", typeof(TextViewerWindow));
-
             IDictionary<PhoneModel, IDeployer> deployerDict = new Dictionary<PhoneModel, IDeployer>
             {
                 {PhoneModel.Lumia950Xl, GetDeployer(Path.Combine("Files", "Lumia 950 XL"))},
@@ -42,9 +40,9 @@ namespace Intaller.Wpf
                     new DriverPackageImporter<ZipArchiveEntry, ZipVolume, ZipArchive>(s => ZipArchive.Open(s), "Files"))
             };
 
-            var mainViewModel = new MainViewModel(logEvents, deployersItems, importerItems,
-                new ViewServices(new WpfOpenFileService(), DialogCoordinator.Instance, visualizerService, new FilePicker()),
-                async () => new Phone(await api.GetPhoneDisk()));
+            var viewService = new ViewService();
+            viewService.Register("TextViewer", typeof(TextViewerWindow));
+            var mainViewModel = new MainViewModel(logEvents, deployersItems, importerItems, new UIServices(new FilePicker(), viewService, new DialogService(DialogCoordinator.Instance)), new SettingsService(), async () => new Phone(await api.GetPhoneDisk()));
             return mainViewModel;
         }
 

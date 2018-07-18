@@ -7,21 +7,21 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
-using Cinch.Reloaded.Services.Implementation;
 using DynamicData;
 using Installer.Core;
 using Installer.Core.Exceptions;
 using Installer.Core.Services.Wim;
 using Installer.UI;
 using Installer.Wpf.Core.Services;
-using Intaller.Wpf.Properties;
-using MahApps.Metro.Controls.Dialogs;
+using Intaller.Wpf;
+using Intaller.Wpf.ViewModels;
 using ReactiveUI;
 using Serilog;
 using Serilog.Events;
 
-namespace Intaller.Wpf.ViewModels
+namespace Installer.ViewModels
 {
     public class MainViewModel : ReactiveObject, IDisposable
     {
@@ -33,26 +33,26 @@ namespace Intaller.Wpf.ViewModels
         private readonly ObservableAsPropertyHelper<RenderedLogEvent> statusHelper;
         private readonly IDisposable logLoader;
         private readonly ICollection<DriverPackageImporterItem> driverPackageImporterItems;
-        private readonly ViewServices viewServices;
+        private readonly UIServices uiServices;
+        private readonly ISettingsService settingService;
         private readonly ObservableAsPropertyHelper<bool> isProgressVisibleHelper;
         private readonly ObservableAsPropertyHelper<bool> hasWimHelper;
         private ObservableAsPropertyHelper<WimMetadataViewModel> pickWimFileObs;
         private DeployerItem selectedDeployerItem;
 
-        public MainViewModel(IObservable<LogEvent> logEvents, ICollection<DeployerItem> deployersItems,
-            ICollection<DriverPackageImporterItem> driverPackageImporterItems, ViewServices viewServices,
-            Func<Task<Phone>> getPhoneFunc)
+        public MainViewModel(IObservable<LogEvent> logEvents, ICollection<DeployerItem> deployersItems, ICollection<DriverPackageImporterItem> driverPackageImporterItems, UIServices uiServices, ISettingsService settingService, Func<Task<Phone>> getPhoneFunc)
         {
-            DualBootViewModel = new DualBootViewModel(viewServices.DialogCoordinator);
+            DualBootViewModel = new DualBootViewModel(uiServices.DialogService, getPhoneFunc);
 
             DeployersItems = deployersItems;
 
             this.driverPackageImporterItems = driverPackageImporterItems;
-            this.viewServices = viewServices;
+            this.uiServices = uiServices;
+            this.settingService = settingService;
             this.getPhoneFunc = getPhoneFunc;
 
             ShowWarningCommand = ReactiveCommand.CreateFromTask(() =>
-                viewServices.DialogCoordinator.ShowMessageAsync(this, Resources.TermsOfUseTitle,
+                uiServices.DialogService.ShowAlert(this, Resources.TermsOfUseTitle,
                     Resources.WarningNotice));
 
             SetupPickWimCommand();
@@ -66,15 +66,15 @@ namespace Intaller.Wpf.ViewModels
                 isSelectedWim.CombineLatest(isDeployerSelected, (hasWim, hasDeployer) => hasWim && hasDeployer);
 
             FullInstallWrapper = new CommandWrapper<Unit, Unit>(this,
-                ReactiveCommand.CreateFromTask(DeployUefiAndWindows, canDeploy), viewServices.DialogCoordinator);
+                ReactiveCommand.CreateFromTask(DeployUefiAndWindows, canDeploy), uiServices.DialogService);
             WindowsInstallWrapper = new CommandWrapper<Unit, Unit>(this,
-                ReactiveCommand.CreateFromTask(DeployWindows, canDeploy), viewServices.DialogCoordinator);
+                ReactiveCommand.CreateFromTask(DeployWindows, canDeploy), uiServices.DialogService);
             InjectDriversWrapper = new CommandWrapper<Unit, Unit>(this,
                 ReactiveCommand.CreateFromTask(InjectPostOobeDrivers, isDeployerSelected),
-                viewServices.DialogCoordinator);
+                uiServices.DialogService);
 
             ImportDriverPackageWrapper = new CommandWrapper<Unit, Unit>(this,
-                ReactiveCommand.CreateFromTask(ImportDriverPackage), viewServices.DialogCoordinator);
+                ReactiveCommand.CreateFromTask(ImportDriverPackage), uiServices.DialogService);
 
             var isBusyObs = Observable.Merge(FullInstallWrapper.Command.IsExecuting,
                 WindowsInstallWrapper.Command.IsExecuting,
@@ -88,7 +88,7 @@ namespace Intaller.Wpf.ViewModels
 
             progressHelper = progressSubject
                 .Where(d => !double.IsNaN(d))
-                .ObserveOnDispatcher()
+                .ObserveOn(SynchronizationContext.Current)
                 .ToProperty(this, model => model.Progress);
 
             isProgressVisibleHelper = progressSubject
@@ -136,7 +136,7 @@ namespace Intaller.Wpf.ViewModels
         {
             var extensions = driverPackageImporterItems.Select(x => $"*.{x.Extension}");
 
-            var fileName = viewServices.FilePicker.Pick(new List<(string, IEnumerable<string>)> { ("Driver package", extensions) }, () => Settings.Default.DriverPackFolder, fn => Settings.Default.DriverPackFolder = fn);
+            var fileName = uiServices.FilePicker.Pick(new List<(string, IEnumerable<string>)> { ("Driver package", extensions) }, () => settingService.DriverPackFolder, fn => settingService.DriverPackFolder = fn);
 
             if (fileName == null)
             {
@@ -149,12 +149,11 @@ namespace Intaller.Wpf.ViewModels
             var message = await importer.GetReadmeText(fileName);
             if (!string.IsNullOrEmpty(message))
             {
-                viewServices.VisualizerService.Show("TextViewer", new MessageViewModel("Changelog", message),
-                    (_, __) => { }, OwnerOption.MainWindow);
+                uiServices.ViewService.Show("TextViewer", new MessageViewModel("Changelog", message));
             }
 
             await importer.ImportDriverPackage(fileName, "", progressSubject);
-            await viewServices.DialogCoordinator.ShowMessageAsync(this, "Done", "Driver Package imported");
+            await uiServices.DialogService.ShowAlert(this, "Done", "Driver Package imported");
             Log.Information("Driver Package imported");
         }
 
@@ -171,7 +170,7 @@ namespace Intaller.Wpf.ViewModels
 
         public CommandWrapper<Unit, Unit> InjectDriversWrapper { get; }
 
-        public ReactiveCommand<Unit, MessageDialogResult> ShowWarningCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> ShowWarningCommand { get; set; }
 
         public bool IsProgressVisible => isProgressVisibleHelper.Value;
 
@@ -184,7 +183,7 @@ namespace Intaller.Wpf.ViewModels
             PickWimFileCommand.ThrownExceptions.Subscribe(e =>
             {
                 Log.Error(e, "WIM file error");
-                viewServices.DialogCoordinator.ShowMessageAsync(this, "Invalid WIM file", e.Message);
+                uiServices.DialogService.ShowAlert(this, "Invalid WIM file", e.Message);
             });
         }
 
@@ -192,8 +191,8 @@ namespace Intaller.Wpf.ViewModels
         {
             get
             {
-                var value = viewServices.FilePicker.Pick(new List<(string, IEnumerable<string>)> {("WIM files", new[] {"install.wim"})},
-                    () => Settings.Default.WimFolder, x => Settings.Default.WimFolder = x);
+                var value = uiServices.FilePicker.Pick(new List<(string, IEnumerable<string>)> {("WIM files", new[] {"install.wim"})},
+                    () => settingService.WimFolder, x => settingService.WimFolder = x);
 
                 return Observable.Return(value).Where(x => x != null)
                     .Select(LoadWimMetadata);
@@ -234,7 +233,7 @@ namespace Intaller.Wpf.ViewModels
             };
 
             await SelectedDeployer.DeployCoreAndWindows(installOptions, await GetPhone(), progressSubject);
-            await viewServices.DialogCoordinator.ShowMessageAsync(this, Resources.Finished,
+            await uiServices.DialogService.ShowAlert(this, Resources.Finished,
                 Resources.WindowsDeployedSuccessfully);
         }
 
@@ -252,7 +251,7 @@ namespace Intaller.Wpf.ViewModels
             };
 
             await SelectedDeployer.DeployWindows(installOptions, await GetPhone(), progressSubject);
-            await viewServices.DialogCoordinator.ShowMessageAsync(this, Resources.Finished,
+            await uiServices.DialogService.ShowAlert(this, Resources.Finished,
                 Resources.WindowsDeployedSuccessfully);
         }
 
@@ -271,7 +270,7 @@ namespace Intaller.Wpf.ViewModels
                 throw new InvalidOperationException(Resources.CannotInjectPostOobe, e);
             }
 
-            await viewServices.DialogCoordinator.ShowMessageAsync(this, Resources.Finished,
+            await uiServices.DialogService.ShowAlert(this, Resources.Finished,
                 Resources.DriversInjectedSucessfully);
         }
 
@@ -297,5 +296,11 @@ namespace Intaller.Wpf.ViewModels
             ShowWarningCommand?.Dispose();
             PickWimFileCommand?.Dispose();
         }
+    }
+
+    public interface ISettingsService
+    {
+        string DriverPackFolder { get; set; }
+        string WimFolder { get; set; }
     }
 }

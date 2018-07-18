@@ -9,7 +9,6 @@ namespace Installer.Wpf.Core.Services
     public class FilePicker : IFilePicker
     {
         public string InitialDirectory { get; set; }
-        public string SelectedFile { get; set; }
         public List<FileTypeFilter> FileTypeFilter { get; } = new List<FileTypeFilter>();
         public string PickFile()
         {

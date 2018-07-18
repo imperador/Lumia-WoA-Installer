@@ -7,13 +7,13 @@
                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                  xmlns:sections="clr-namespace:Intaller.Wpf.Views.Parts.Sections"
                  xmlns:parts="clr-namespace:Intaller.Wpf.Views.Parts"
-                 xmlns:viewModels="clr-namespace:Intaller.Wpf.ViewModels"
+                 xmlns:viewModels1="clr-namespace:Installer.ViewModels;assembly=Installer.ViewModels"
                  WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Icon="/Assets/appicon.png"
         
         Title="Windows On ARM Installer for Lumia 950/XL" Width="920" Height="720"
-                 d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
+                 d:DataContext="{d:DesignInstance viewModels1:MainViewModel}"
         mah:DialogParticipation.Register="{Binding}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">

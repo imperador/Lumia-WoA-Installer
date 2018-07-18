@@ -1,6 +1,7 @@
 using Installer.Core;
+using Intaller.Wpf.ViewModels;
 
-namespace Intaller.Wpf.ViewModels
+namespace Installer.ViewModels
 {
     public class DeployerItem
     {

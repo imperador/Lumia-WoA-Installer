@@ -48,9 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusyButton.cs" />
+    <Compile Include="Services\DialogService.cs" />
     <Compile Include="Services\FilePicker.cs" />
-    <Compile Include="Services\FilePickMixin.cs" />
-    <Compile Include="Services\ViewServices.cs" />
+    <Compile Include="Services\ViewService.cs" />
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsService.cs" />
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,11 +82,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Cinch.Reloaded">
-      <Version>1.2.0</Version>
-    </PackageReference>
     <PackageReference Include="MahApps.Metro">
       <Version>1.6.5</Version>
     </PackageReference>
@@ -98,6 +103,10 @@
     <ProjectReference Include="..\Installer.UI\Installer.UI.csproj">
       <Project>{D15DB86E-52F8-48A6-9F46-276E34BD22AB}</Project>
       <Name>Installer.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Installer.ViewModels\Installer.ViewModels.csproj">
+      <Project>{52070C21-5F3B-438D-BC84-F54C4B47C993}</Project>
+      <Name>Installer.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
