@@ -1,4 +1,4 @@
-﻿namespace Installer.Core
+﻿namespace Installer.Core.Lumia
 {
     public class DualBootStatus
     {

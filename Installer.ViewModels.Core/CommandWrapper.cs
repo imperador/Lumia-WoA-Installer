@@ -4,7 +4,7 @@ using Installer.UI;
 using ReactiveUI;
 using Serilog;
 
-namespace Intaller.Wpf
+namespace Installer.ViewModels.Core
 {
     public class CommandWrapper<T1, T2> : ReactiveObject
     {

@@ -15,13 +15,12 @@ using Installer.Core.Exceptions;
 using Installer.Core.Lumia;
 using Installer.Core.Services.Wim;
 using Installer.UI;
-using Intaller.Wpf;
-using Intaller.Wpf.ViewModels;
+using Installer.ViewModels.Core;
 using ReactiveUI;
 using Serilog;
 using Serilog.Events;
 
-namespace Installer.ViewModels
+namespace Installer.ViewModels.Lumia
 {
     public class MainViewModel : ReactiveObject, IDisposable
     {

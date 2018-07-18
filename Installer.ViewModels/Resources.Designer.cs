@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Installer.ViewModels {
+namespace Installer.ViewModels.Lumia {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Installer.ViewModels {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace Installer.ViewModels {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Installer.ViewModels.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Installer.ViewModels.Lumia.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Installer.ViewModels {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Installer.ViewModels {
         /// <summary>
         ///   Looks up a localized string similar to Cannot inject the Post-OOBE drivers.
         /// </summary>
-        internal static string CannotInjectPostOobe {
+        public static string CannotInjectPostOobe {
             get {
                 return ResourceManager.GetString("CannotInjectPostOobe", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Installer.ViewModels {
         /// <summary>
         ///   Looks up a localized string similar to The drivers have been injected correctly.
         /// </summary>
-        internal static string DriversInjectedSucessfully {
+        public static string DriversInjectedSucessfully {
             get {
                 return ResourceManager.GetString("DriversInjectedSucessfully", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Installer.ViewModels {
         /// <summary>
         ///   Looks up a localized string similar to Finished.
         /// </summary>
-        internal static string Finished {
+        public static string Finished {
             get {
                 return ResourceManager.GetString("Finished", resourceCulture);
             }
@@ -91,7 +91,7 @@ namespace Installer.ViewModels {
         ///   Looks up a localized string similar to Sorry, there are no POST-OOBE drivers available to inject.
         ///The driver package that is currently installed might not need to install any additional driver after Windows Setup..
         /// </summary>
-        internal static string NoPostOobeDrivers {
+        public static string NoPostOobeDrivers {
             get {
                 return ResourceManager.GetString("NoPostOobeDrivers", resourceCulture);
             }
@@ -100,7 +100,7 @@ namespace Installer.ViewModels {
         /// <summary>
         ///   Looks up a localized string similar to Disclaimer Notice and Terms of Use.
         /// </summary>
-        internal static string TermsOfUseTitle {
+        public static string TermsOfUseTitle {
             get {
                 return ResourceManager.GetString("TermsOfUseTitle", resourceCulture);
             }
@@ -113,7 +113,7 @@ namespace Installer.ViewModels {
         ///    
         ///By clicking &quot;OK&quot; you accept the aforementioned risks..
         /// </summary>
-        internal static string WarningNotice {
+        public static string WarningNotice {
             get {
                 return ResourceManager.GetString("WarningNotice", resourceCulture);
             }
@@ -122,7 +122,7 @@ namespace Installer.ViewModels {
         /// <summary>
         ///   Looks up a localized string similar to The selected .WIM file doesn&apos;t contain any image for ARM64. Please, select a .wim file that targets this architecture..
         /// </summary>
-        internal static string WimFileNoValidArchitecture {
+        public static string WimFileNoValidArchitecture {
             get {
                 return ResourceManager.GetString("WimFileNoValidArchitecture", resourceCulture);
             }
@@ -134,7 +134,7 @@ namespace Installer.ViewModels {
         ///After reboot, choose &quot;Windows 10&quot; in the Boot Menu to start the Windows 10 ARM Setup.
         ///Enjoy!.
         /// </summary>
-        internal static string WindowsDeployedSuccessfully {
+        public static string WindowsDeployedSuccessfully {
             get {
                 return ResourceManager.GetString("WindowsDeployedSuccessfully", resourceCulture);
             }

@@ -201,9 +201,13 @@
       <Project>{D15DB86E-52F8-48A6-9F46-276E34BD22AB}</Project>
       <Name>Installer.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Installer.ViewModels\Installer.ViewModels.csproj">
+    <ProjectReference Include="..\Installer.ViewModels.Core\Installer.ViewModels.Core.csproj">
+      <Project>{4CBD19E9-9D48-41A6-BCC7-19B1DC7A29D9}</Project>
+      <Name>Installer.ViewModels.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Installer.ViewModels\Installer.ViewModels.Lumia.csproj">
       <Project>{52070c21-5f3b-438d-bc84-f54c4b47c993}</Project>
-      <Name>Installer.ViewModels</Name>
+      <Name>Installer.ViewModels.Lumia</Name>
     </ProjectReference>
     <ProjectReference Include="..\Installer.Wpf.Core\Installer.Wpf.Core.csproj">
       <Project>{ad8ea86c-af60-4ccf-9caa-07bbf5e039ec}</Project>

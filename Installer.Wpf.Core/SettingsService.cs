@@ -1,4 +1,5 @@
 ﻿using Installer.ViewModels;
+using Installer.ViewModels.Lumia;
 
 namespace Installer.Wpf.Core
 {

@@ -1,6 +1,6 @@
 using Serilog.Events;
 
-namespace Intaller.Wpf.ViewModels
+namespace Installer.ViewModels.Core
 {
     public class RenderedLogEvent
     {

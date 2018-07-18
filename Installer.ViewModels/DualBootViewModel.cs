@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Installer.Core;
 using Installer.Core.Lumia;
 using Installer.UI;
-using Intaller.Wpf;
+using Installer.ViewModels.Core;
 using ReactiveUI;
 
-namespace Installer.ViewModels
+namespace Installer.ViewModels.Lumia
 {
     public class DualBootViewModel : ReactiveObject
     {

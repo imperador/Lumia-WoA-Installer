@@ -1,4 +1,4 @@
-namespace Intaller.Wpf.ViewModels
+namespace Installer.ViewModels.Lumia
 {
     public class PhoneModel
     {

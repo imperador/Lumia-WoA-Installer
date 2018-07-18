@@ -1,8 +1,7 @@
 using Installer.Core;
 using Installer.Core.Lumia;
-using Intaller.Wpf.ViewModels;
 
-namespace Installer.ViewModels
+namespace Installer.ViewModels.Lumia
 {
     public class DeployerItem
     {
