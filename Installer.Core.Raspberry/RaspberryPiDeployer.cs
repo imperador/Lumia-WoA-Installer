@@ -1,13 +1,24 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Installer.Core.Services;
+using Serilog;
 
 namespace Installer.Core.Raspberry
 {
     public class RaspberryPiDeployer : IDeployer<RaspberryPi>
     {
-        public Task DeployCoreAndWindows(InstallOptions options, RaspberryPi device, IObserver<double> progressObserver = null)
+        private readonly IImageFlasher flasher;
+
+        public RaspberryPiDeployer(IImageFlasher flasher)
         {
-            throw new NotImplementedException();
+            this.flasher = flasher;
+        }
+
+        public async Task DeployCoreAndWindows(InstallOptions options, RaspberryPi device, IObserver<double> progressObserver = null)
+        {
+            Log.Information("Flashing GPT image...");
+            await flasher.Flash(device.Disk, @"Files\Core\gpt.zip", progressObserver);
+            Log.Information("GPT image flashed");
         }
 
         public Task DeployWindows(InstallOptions options, RaspberryPi device, IObserver<double> progressObserver = null)
