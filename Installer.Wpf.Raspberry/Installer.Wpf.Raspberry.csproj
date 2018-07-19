@@ -37,9 +37,6 @@
     <ApplicationIcon>Assets\appicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Serilog">
-      <HintPath>..\..\..\..\.nuget\packages\serilog\2.7.1\lib\net46\Serilog.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -136,6 +133,9 @@
     <PackageReference Include="MahApps.Metro">
       <Version>1.6.5</Version>
     </PackageReference>
+    <PackageReference Include="ReactiveUI.WPF">
+      <Version>8.3.1</Version>
+    </PackageReference>
     <PackageReference Include="Serilog.Sinks.Observable">
       <Version>2.0.2</Version>
     </PackageReference>
@@ -147,6 +147,18 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Installer.Core.FullFx\Installer.Core.FullFx.csproj">
+      <Project>{15D1B19B-6F1B-47AD-BE7B-F9BCA447CBC0}</Project>
+      <Name>Installer.Core.FullFx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Installer.Core\Installer.Core.csproj">
+      <Project>{97CF13C2-67D8-4BDF-80D3-00E31685603F}</Project>
+      <Name>Installer.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Installer.UI\Installer.UI.csproj">
+      <Project>{D15DB86E-52F8-48A6-9F46-276E34BD22AB}</Project>
+      <Name>Installer.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Installer.ViewModels.Core\Installer.ViewModels.Core.csproj">
       <Project>{4CBD19E9-9D48-41A6-BCC7-19B1DC7A29D9}</Project>
       <Name>Installer.ViewModels.Core</Name>
@@ -192,6 +204,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\appicon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\drive.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

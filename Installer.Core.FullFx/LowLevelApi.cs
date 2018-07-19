@@ -105,7 +105,19 @@ namespace Installer.Core.FullFx
             var size = new ByteSize((ulong)disk.GetPropertyValue("Size"));
             var allocatedSize = new ByteSize((ulong)disk.GetPropertyValue("AllocatedSize"));
 
-            return new Disk(lowLevelApi, number, size, allocatedSize);
+            var diskProps = new DiskInfo
+            {
+                Number = number,
+                Size = size,
+                AllocatedSize = allocatedSize,
+                FriendlyName = (string)disk.GetPropertyValue("FriendlyName"),
+                IsSystem = (bool) disk.GetPropertyValue("IsSystem"),
+                IsBoot =  (bool) disk.GetPropertyValue("IsBoot"),
+                IsOffline =  (bool) disk.GetPropertyValue("IsOffline"),
+                IsReadOnly =  (bool) disk.GetPropertyValue("IsReadOnly"),
+            };
+
+            return new Disk(lowLevelApi, diskProps);
         }
 
 
