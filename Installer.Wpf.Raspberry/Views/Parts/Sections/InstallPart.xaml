@@ -22,76 +22,19 @@
         <Grid Grid.Row="1">
 
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition />
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <UniformGrid Rows="1">
-                <GroupBox Header="Disk selection">
-                    <GroupBox.Resources>
-                        <CollectionViewSource x:Key="Disks" Source="{Binding Disks}">
-                            <CollectionViewSource.SortDescriptions>
-                                <componentModel:SortDescription PropertyName="Number" />
-                            </CollectionViewSource.SortDescriptions>
-                        </CollectionViewSource>
-                    </GroupBox.Resources>
-                    <Grid VerticalAlignment="Center">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <ComboBox Grid.RowSpan="2" ItemsSource="{Binding Source={StaticResource Disks}}"
-                                      HorizontalContentAlignment="Stretch"
-                                      SelectedItem="{Binding SelectedDisk, Mode=TwoWay}"
-                                      IsEnabled="{Binding RefreshDisksCommmandWrapper.IsExecuting, Converter={StaticResource BooleanToVisibilityConverterInverted}}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid x:Name="Container" Height="30">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <Image Source="/Assets/drive.png" />
-                                            <TextBlock Margin="10, 0" x:Name="TextBlock" Grid.Column="1" VerticalAlignment="Center">
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}{0}: {1} - {2}">
-                                                        <Binding Path="Number" />
-                                                        <Binding Path="FriendlyName" />
-                                                        <Binding Path="Size" />
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Grid>
-                                        <DataTemplate.Triggers>
-                                            <DataTrigger Binding="{Binding IsUsualTarget}" Value="False">
-                                                <Setter TargetName="TextBlock" Property="Foreground" Value="Red"/>
-                                            </DataTrigger>
-                                        </DataTemplate.Triggers>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            <Button Grid.Column="1" Content="Refresh" Command="{Binding RefreshDisksCommmandWrapper.Command}"  />
-                        </Grid>
-                        <Grid Visibility="{Binding RefreshDisksCommmandWrapper.IsExecuting, Converter={StaticResource BooleanToVisibilityConverter}}" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="3*"/>
-                                <RowDefinition Height="1*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock VerticalAlignment="Center" TextAlignment="Center" Grid.Row="0" Text="Loading..."/>
-                            <ProgressBar Grid.Row="1" IsIndeterminate="True"/>
-                        </Grid>
-                    </Grid>
-                </GroupBox>
-                <sections:WimOptionsPart />
-            </UniformGrid>
 
+            <sections:DiskSelectionPart />
+            <sections:WimOptionsPart Grid.Row="1" />
 
-            <UniformGrid Rows="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Height="50"
+            <UniformGrid Rows="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Height="50"
                          Margin="15">
                 <core:BusyButton VerticalAlignment="Center" Command="{Binding FullInstallWrapper.Command}"
-                                  IsBusy="{Binding FullInstallWrapper.IsExecuting}" Content="Full"
+                                  IsBusy="{Binding FullInstallWrapper.IsExecuting}" Content="Full Install"
                                   Image="/Assets/full.png" Margin="0,0,4,0"
                                   ToolTip="Use this option to install Windows into a Raspberry Pi that has just been unlocked." />
                 <core:BusyButton Visibility="Collapsed" VerticalAlignment="Center" Command="{Binding WindowsInstallWrapper.Command}"

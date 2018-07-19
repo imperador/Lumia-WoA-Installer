@@ -71,6 +71,9 @@
     <Compile Include="Views\Parts\Sections\AdvancedPart.xaml.cs">
       <DependentUpon>AdvancedPart.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Parts\Sections\DiskSelectionPart.xaml.cs">
+      <DependentUpon>DiskSelectionPart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Parts\Sections\InstallPart.xaml.cs">
       <DependentUpon>InstallPart.xaml</DependentUpon>
     </Compile>
@@ -98,6 +101,10 @@
     <Page Include="Views\Parts\Sections\AdvancedPart.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Parts\Sections\DiskSelectionPart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Parts\Sections\InstallPart.xaml">
       <Generator>MSBuild:Compile</Generator>
