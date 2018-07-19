@@ -295,11 +295,5 @@ namespace Installer.ViewModels.Lumia
             ShowWarningCommand?.Dispose();
             PickWimFileCommand?.Dispose();
         }
-    }
-
-    public interface ISettingsService
-    {
-        string DriverPackFolder { get; set; }
-        string WimFolder { get; set; }
-    }
+    }    
 }

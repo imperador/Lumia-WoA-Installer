@@ -23,8 +23,8 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition/>
+                <RowDefinition />
                 <RowDefinition Height="Auto"/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
 
             <UniformGrid Rows="1">
@@ -44,6 +44,7 @@
                             </Grid.ColumnDefinitions>
                             <ComboBox Grid.RowSpan="2" ItemsSource="{Binding Source={StaticResource Disks}}"
                                       HorizontalContentAlignment="Stretch"
+                                      SelectedItem="{Binding SelectedDisk, Mode=TwoWay}"
                                       IsEnabled="{Binding RefreshDisksCommmandWrapper.IsExecuting, Converter={StaticResource BooleanToVisibilityConverterInverted}}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -93,13 +94,13 @@
                                   IsBusy="{Binding FullInstallWrapper.IsExecuting}" Content="Full"
                                   Image="/Assets/full.png" Margin="0,0,4,0"
                                   ToolTip="Use this option to install Windows into a Raspberry Pi that has just been unlocked." />
-                <core:BusyButton VerticalAlignment="Center" Command="{Binding WindowsInstallWrapper.Command}"
+                <core:BusyButton Visibility="Collapsed" VerticalAlignment="Center" Command="{Binding WindowsInstallWrapper.Command}"
                                   IsBusy="{Binding WindowsInstallWrapper.IsExecuting}" Content="Windows Only"
                                   ToolTip="Use this option to install/reinstall Windows. This will NOT modify your current BCD / UEFI."
                                   Image="/Assets/windows-only.png" Margin="4,0,0,0" />
             </UniformGrid>
 
-            <GroupBox Header="Post-Windows Setup Drivers" Grid.Row="2" VerticalAlignment="Center" Padding="20">
+            <GroupBox Visibility="Collapsed" Header="Post-Windows Setup Drivers" Grid.Row="2" VerticalAlignment="Center" Padding="20">
                 <StackPanel>
                     <TextBlock TextWrapping="Wrap" Margin="0,0,0,20" FontSize="14">
                         Some drivers should <Bold>only</Bold> be injected after Windows 10 ARM64 has been completely installed into the Raspberry Pi. Injecting them will provide improved functionality and better overall experience.

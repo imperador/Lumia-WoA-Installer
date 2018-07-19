@@ -57,6 +57,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsService.cs" />
     <Compile Include="Views\CompositionRoot.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -128,6 +132,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MahApps.Metro">
@@ -150,6 +158,10 @@
     <ProjectReference Include="..\Installer.Core.FullFx\Installer.Core.FullFx.csproj">
       <Project>{15D1B19B-6F1B-47AD-BE7B-F9BCA447CBC0}</Project>
       <Name>Installer.Core.FullFx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Installer.Core.Raspberry\Installer.Core.Raspberry.csproj">
+      <Project>{BBB0938E-37FE-4D4D-BC45-670F6328AE03}</Project>
+      <Name>Installer.Core.Raspberry</Name>
     </ProjectReference>
     <ProjectReference Include="..\Installer.Core\Installer.Core.csproj">
       <Project>{97CF13C2-67D8-4BDF-80D3-00E31685603F}</Project>

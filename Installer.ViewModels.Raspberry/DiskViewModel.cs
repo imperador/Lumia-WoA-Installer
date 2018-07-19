@@ -16,5 +16,6 @@ namespace Installer.ViewModels.Raspberry
         public string FriendlyName => disk.FriendlyName;
         public ByteSize Size => disk.Size;
         public bool IsUsualTarget => Size > ByteSize.FromGigaBytes(14) && Size < ByteSize.FromGigaBytes(255);
+        public Disk Disk => disk;
     }
 }

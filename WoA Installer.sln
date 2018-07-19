@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Raspberry PI", "Raspberry P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Installer.ViewModels.Raspberry", "Installer.ViewModels.Raspberry\Installer.ViewModels.Raspberry.csproj", "{57EE0A2E-6E4F-427F-A2CB-107EDF7B1976}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer.Core.Raspberry", "Installer.Core.Raspberry\Installer.Core.Raspberry.csproj", "{BBB0938E-37FE-4D4D-BC45-670F6328AE03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{57EE0A2E-6E4F-427F-A2CB-107EDF7B1976}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57EE0A2E-6E4F-427F-A2CB-107EDF7B1976}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57EE0A2E-6E4F-427F-A2CB-107EDF7B1976}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBB0938E-37FE-4D4D-BC45-670F6328AE03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBB0938E-37FE-4D4D-BC45-670F6328AE03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBB0938E-37FE-4D4D-BC45-670F6328AE03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBB0938E-37FE-4D4D-BC45-670F6328AE03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +104,7 @@ Global
 		{52070C21-5F3B-438D-BC84-F54C4B47C993} = {D88E68E3-EF33-4B23-9EB4-0B2885D2F115}
 		{BB117CF2-8461-4353-8F07-4D5E9A1459FB} = {D88E68E3-EF33-4B23-9EB4-0B2885D2F115}
 		{57EE0A2E-6E4F-427F-A2CB-107EDF7B1976} = {C8274C38-0C94-4984-9FC7-0D1463A4F674}
+		{BBB0938E-37FE-4D4D-BC45-670F6328AE03} = {C8274C38-0C94-4984-9FC7-0D1463A4F674}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E09817AC-F002-4FDC-BA6F-5A99F55D72C0}

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Installer.Core.Lumia\Installer.Core.Lumia.csproj" />
+    <ProjectReference Include="..\Installer.Core.Raspberry\Installer.Core.Raspberry.csproj" />
     <ProjectReference Include="..\Installer.Core\Installer.Core.csproj" />
     <ProjectReference Include="..\Installer.UI\Installer.UI.csproj" />
     <ProjectReference Include="..\Installer.ViewModels.Core\Installer.ViewModels.Core.csproj" />
