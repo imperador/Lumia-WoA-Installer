@@ -30,11 +30,12 @@ namespace Installer.Core.Raspberry
             Log.Information("Deploying Windows 10 ARM64...");
 
             await RemoveExistingWindowsPartitions(phone);
-            var partitions = await CreatePartitions(phone);
+            await CreateWindowsPartition(phone);
 
-            await ApplyWindowsImage(partitions, options, progressObserver);
-            await InjectDrivers(partitions.Windows);
-            await MakeBootable(partitions, phone);
+            var windowsVolumes = new WindowsVolumes(await phone.GetBootVolume(), await phone.GetWindowsVolume());
+            await ApplyWindowsImage(windowsVolumes, options, progressObserver);
+            await InjectDrivers(windowsVolumes.Windows);
+            await MakeBootable(windowsVolumes, phone);
 
             Log.Information("Windows Image deployed");
         }
@@ -79,18 +80,16 @@ namespace Installer.Core.Raspberry
             progressObserver?.OnNext(double.NaN);
         }
 
-        private async Task<WindowsVolumes> CreatePartitions(RaspberryPi phone)
+        private async Task CreateWindowsPartition(RaspberryPi phone)
         {
-            Log.Information("Creating Windows partitions...");
+            Log.Information("Creating Windows partition...");
 
             var windowsPartition = await phone.Disk.CreatePartition(ulong.MaxValue);
             var winVolume = await windowsPartition.GetVolume();
             await winVolume.Mount();
             await winVolume.Format(FileSystemFormat.Ntfs, WindowsPartitonLabel);
 
-            Log.Information("Windows Partitions created successfully");
-
-            return new WindowsVolumes(await phone.GetBootVolume(), await phone.GetWindowsVolume());
+            Log.Information("Windows Partition created successfully");            
         }
 
         public async Task InjectPostOobeDrivers(RaspberryPi phone)

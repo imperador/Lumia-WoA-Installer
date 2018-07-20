@@ -16,7 +16,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock Margin="12,6,12,18" FontSize="16" TextWrapping="Wrap">Use this section to install or reinstall <Bold>Windows 10 ARM64</Bold> into your Raspberry Pi.</TextBlock>
+            <TextBlock Margin="12,6,12,12" FontSize="16" TextWrapping="Wrap">Use this section to install or reinstall <Bold>Windows 10 ARM64</Bold> into your Raspberry Pi.</TextBlock>
         </StackPanel>
 
         <Grid Grid.Row="1">
@@ -28,13 +28,13 @@
             </Grid.RowDefinitions>
 
 
-            <sections:DiskSelectionPart />
-            <sections:WimOptionsPart Grid.Row="1" />
+            <sections:DiskSelectionPart Margin="0,8" />
+            <sections:WimOptionsPart Grid.Row="1" Margin="0,8" />
 
             <UniformGrid Rows="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Height="50"
                          Margin="15">
                 <core:BusyButton VerticalAlignment="Center" Command="{Binding FullInstallWrapper.Command}"
-                                  IsBusy="{Binding FullInstallWrapper.IsExecuting}" Content="Full Install"
+                                  IsBusy="{Binding FullInstallWrapper.IsExecuting}" Content="Deploy"
                                   Image="/Assets/full.png" Margin="0,0,4,0"
                                   ToolTip="Use this option to install Windows into a Raspberry Pi that has just been unlocked." />
                 <core:BusyButton Visibility="Collapsed" VerticalAlignment="Center" Command="{Binding WindowsInstallWrapper.Command}"

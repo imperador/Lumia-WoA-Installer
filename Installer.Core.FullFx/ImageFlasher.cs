@@ -36,13 +36,15 @@ namespace Installer.Core.FullFx
             var gptSchemeImagePath = Path.Combine("Files", "Core", "Gpt.zip");
 
             var etcherPath = Path.Combine("Files", "Tools", "Etcher-Cli", "Etcher");
-            var args = $@"-d \\.\PHYSICALDRIVE{disk.Number} ""{gptSchemeImagePath}"" --yes";
+            var args = $@"-d \\.\PHYSICALDRIVE{disk.Number} ""{gptSchemeImagePath}"" --yes --no-unmount";
             Log.Verbose("We are about to run Etcher: {ExecName} {Parameters}", etcherPath, args);
             var resultCode = await ProcessUtils.RunProcessAsync(etcherPath, args, outputObserver: outputSubject);
             if (resultCode != 0)
             {
                 throw new DeploymentException($"There has been a problem during deployment: Etcher exited with code {resultCode}.");
             }
+
+            progressObserver?.OnNext(double.NaN);
 
             stdOutputSubscription?.Dispose();
         }
