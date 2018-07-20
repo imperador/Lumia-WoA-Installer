@@ -115,5 +115,20 @@ namespace Installer.Core.Lumia
 
             Log.Verbose("Windows Phone BCD entry removed");
         }
+
+        public override async Task RemoveExistingWindowsPartitions()
+        {
+            Log.Information("Cleanup of possible previous Windows 10 ARM64 installation...");
+
+            await RemovePartition("Reserved", await Disk.GetReservedPartition());
+            await RemovePartition("WoA ESP", await GetBootPartition());
+            var winVol = await GetWindowsVolume();
+            await RemovePartition("WoA", winVol?.Partition);           
+        }
+
+        public override async Task<Volume> GetBootVolume()
+        {
+            return boolVolume ?? (boolVolume = await GetVolume("BOOT"));
+        }
     }
 }

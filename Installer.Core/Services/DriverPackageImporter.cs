@@ -71,7 +71,7 @@ namespace Installer.Core.Services
         {
             foreach (var path in paths)
             {
-                FileUtils.EnsureEmptyDirectory(path);
+                FileUtils.DeleteDirectyRecursive(path);
             }
         }
 

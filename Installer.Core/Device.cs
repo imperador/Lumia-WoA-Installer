@@ -8,9 +8,9 @@ using Serilog;
 
 namespace Installer.Core
 {
-    public class Device
+    public abstract class Device
     {
-        private Volume boolVolume;
+        protected Volume boolVolume;
         private Volume windowsVolume;
 
         protected Device(Disk disk)
@@ -48,11 +48,6 @@ namespace Installer.Core
             return windowsVolume ?? (windowsVolume = await GetVolume("WindowsARM"));
         }
 
-        public async Task<Volume> GetBootVolume()
-        {
-            return boolVolume ?? (boolVolume = await GetVolume("BOOT"));
-        }
-
         protected async Task<bool> IsWoAPresent()
         {
             try
@@ -81,6 +76,8 @@ namespace Installer.Core
             var bootVolume = await GetBootVolume();
             return bootVolume != null;
         }
+
+        public abstract Task<Volume> GetBootVolume();
 
         protected async Task<bool> IsWindowsPhonePresent()
         {
@@ -111,17 +108,7 @@ namespace Installer.Core
             return bootVolume?.Partition;
         }
 
-        public async Task RemoveExistingWindowsPartitions()
-        {
-            Log.Information("Cleanup of possible previous Windows 10 ARM64 installation...");
-
-            await RemovePartition("Reserved", await Disk.GetReservedPartition());
-            await RemovePartition("WoA ESP", await GetBootPartition());
-            var winVol = await GetWindowsVolume();
-            await RemovePartition("WoA", winVol?.Partition);           
-        }
-
-        private static async Task RemovePartition(string partitionName, Partition partition)
+        protected static async Task RemovePartition(string partitionName, Partition partition)
         {
             Log.Verbose("Trying to remove previously existing {Partition} partition", partitionName);
             if (partition != null)
@@ -150,5 +137,7 @@ namespace Installer.Core
 
             return int.Parse(val.ValueData) == 0;
         }
+
+        public abstract Task RemoveExistingWindowsPartitions();
     }
 }

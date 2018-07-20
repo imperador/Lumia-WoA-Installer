@@ -8,14 +8,10 @@ using Installer.Core.Services;
 using Installer.Core.Utils;
 using Serilog;
 
-namespace Installer.Core.Lumia
+namespace Installer.Core.Raspberry
 {
-    public class LumiaWindowsDeployer : IWindowsDeployer<Phone>
+    public class RaspberryPiWindowsDeployer : IWindowsDeployer<RaspberryPi>
     {
-        private static readonly ByteSize SpaceNeededForWindows = ByteSize.FromGigaBytes(18);
-        private static readonly ByteSize ReservedPartitionSize = ByteSize.FromMegaBytes(200);
-        private static readonly ByteSize BootPartitionSize = ByteSize.FromMegaBytes(100);
-        private const string BootPartitionLabel = "BOOT";
         private const string WindowsPartitonLabel = "WindowsARM";
         private const string BcdBootPath = @"c:\Windows\SysNative\bcdboot.exe";
 
@@ -23,18 +19,17 @@ namespace Installer.Core.Lumia
         private readonly DriverPaths driverPaths;
 
 
-        public LumiaWindowsDeployer(IWindowsImageService windowsImageService, DriverPaths driverPaths)
+        public RaspberryPiWindowsDeployer(IWindowsImageService windowsImageService, DriverPaths driverPaths)
         {
             this.windowsImageService = windowsImageService;
             this.driverPaths = driverPaths;
         }
 
-        public async Task Deploy(InstallOptions options, Phone phone, IObserver<double> progressObserver = null)
+        public async Task Deploy(InstallOptions options, RaspberryPi phone, IObserver<double> progressObserver = null)
         {
             Log.Information("Deploying Windows 10 ARM64...");
 
             await RemoveExistingWindowsPartitions(phone);
-            await AllocateSpace(phone);
             var partitions = await CreatePartitions(phone);
 
             await ApplyWindowsImage(partitions, options, progressObserver);
@@ -44,7 +39,7 @@ namespace Installer.Core.Lumia
             Log.Information("Windows Image deployed");
         }
 
-        private async Task MakeBootable(WindowsVolumes volumes, Phone phone)
+        private async Task MakeBootable(WindowsVolumes volumes, RaspberryPi phone)
         {
             Log.Information("Making Windows installation bootable...");
 
@@ -64,7 +59,7 @@ namespace Installer.Core.Lumia
             }
         }
 
-        private Task RemoveExistingWindowsPartitions(Phone phone)
+        private Task RemoveExistingWindowsPartitions(Device phone)
         {
             Log.Information("Cleaning existing Windows 10 ARM64 partitions...");
 
@@ -84,16 +79,9 @@ namespace Installer.Core.Lumia
             progressObserver?.OnNext(double.NaN);
         }
 
-        private async Task<WindowsVolumes> CreatePartitions(Device phone)
+        private async Task<WindowsVolumes> CreatePartitions(RaspberryPi phone)
         {
             Log.Information("Creating Windows partitions...");
-
-            await phone.Disk.CreateReservedPartition((ulong)ReservedPartitionSize.Bytes);
-
-            var bootPartition = await phone.Disk.CreatePartition((ulong)BootPartitionSize.Bytes);
-            var bootVolume = await bootPartition.GetVolume();
-            await bootVolume.Mount();
-            await bootVolume.Format(FileSystemFormat.Fat32, BootPartitionLabel);
 
             var windowsPartition = await phone.Disk.CreatePartition(ulong.MaxValue);
             var winVolume = await windowsPartition.GetVolume();
@@ -105,38 +93,7 @@ namespace Installer.Core.Lumia
             return new WindowsVolumes(await phone.GetBootVolume(), await phone.GetWindowsVolume());
         }
 
-        private async Task AllocateSpace(Phone phone)
-        {
-            Log.Information("Verifying the available space...");
-
-            var refreshedDisk = await phone.Disk.LowLevelApi.GetPhoneDisk();
-            var available = refreshedDisk.Size - refreshedDisk.AllocatedSize;
-
-            if (available < SpaceNeededForWindows)
-            {
-                Log.Warning("There's not enough space in the phone. Trying to take required space from the Data partition");
-
-                await TakeSpaceFromDataPartition(phone);
-                Log.Information("Data partition resized correctly");
-            }
-            else
-            {
-                Log.Verbose("We have enough available space to deploy Windows");
-            }
-        }
-
-        private async Task TakeSpaceFromDataPartition(Phone phone)
-        {
-            Log.Information("Shrinking Data partition...");
-
-            var dataVolume = await phone.GetDataVolume();
-
-            var finalSize = dataVolume.Size - SpaceNeededForWindows;
-
-            await dataVolume.Partition.Resize(finalSize);
-        }
-
-        public async Task InjectPostOobeDrivers(Phone phone)
+        public async Task InjectPostOobeDrivers(RaspberryPi phone)
         {
             Log.Information("Injection of 'Post Windows Setup' drivers...");
 

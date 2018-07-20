@@ -14,7 +14,7 @@ namespace Installer.Wpf.Raspberry.Views
     {
         public static object GetMainViewModel(IObservable<LogEvent> logEvents)
         {
-            var deployer = new RaspberryPiDeployer(new ImageFlasher());
+            var deployer = new RaspberryPiDeployer(new ImageFlasher(), new RaspberryPiWindowsDeployer(new DismImageService(), new DriverPaths(@"Files")));
 
             var lowLevelApi = new LowLevelApi();
             var diskService = new DiskService(lowLevelApi);
