@@ -11,7 +11,7 @@
                  WindowStartupLocation="CenterScreen"
                  mc:Ignorable="d"
                  Icon="/Assets/appicon.png"
-                 Title="Windows On ARM Installer for Raspberry Pi" Width="920" Height="720"
+                 Title="Windows On ARM Installer for Raspberry Pi" Width="920" Height="620"
                  d:DataContext="{d:DesignInstance raspberry:MainViewModel}"
                  mah:DialogParticipation.Register="{Binding}">
     <i:Interaction.Triggers>
@@ -30,10 +30,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--IsEnabled="{Binding IsBusy, Converter={StaticResource BoolNegationConverter}}"-->
-
-        <TabControl Margin="20,0,20,20" Grid.Row="1"
-                    >
+        <TabControl Margin="20,0,20,20" Grid.Row="1" IsEnabled="{Binding IsBusy, Converter={StaticResource BoolNegationConverter}}">
             <TabItem Header="Windows Deployment">
                 <TabItem.HeaderTemplate>
                     <DataTemplate>
@@ -44,14 +41,14 @@
                     <sections:InstallPart />
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="Advanced">
+            <!--<TabItem Header="Advanced">
                 <TabItem.HeaderTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding}" ToolTip="Advanced tasks" />
                     </DataTemplate>
                 </TabItem.HeaderTemplate>
                 <sections:AdvancedPart />
-            </TabItem>
+            </TabItem>-->
         </TabControl>
         <Expander Grid.Row="2" Header="Log" IsExpanded="False" MaxHeight="400">
             <ScrollViewer>

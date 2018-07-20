@@ -108,8 +108,9 @@ namespace Installer.ViewModels.Raspberry {
         
         /// <summary>
         ///   Looks up a localized string similar to - This tool comes with no warranty. 
-        ///- The authors can&apos;t be hold responsible for any damage it may cause to your device.    
-        ///- This tool intended for usage with Lumia 950 and 950 XL **ONLY**.
+        ///- The authors can&apos;t be hold responsible for any damage it may cause to your PC or your data (disk drives).
+        ///- Please, choose the target drive carefully. If you select the wrong drive accidentally you could potentially lose data in your PC/other connected drives.
+        ///- This tool intended for usage with Raspberry Pi 3 **ONLY**.
         ///    
         ///By clicking &quot;OK&quot; you accept the aforementioned risks..
         /// </summary>
@@ -130,8 +131,11 @@ namespace Installer.ViewModels.Raspberry {
         
         /// <summary>
         ///   Looks up a localized string similar to Done!
-        ///Now, please, **eject the Phone safely** to avoid data corruption issues and reboot your Phone.
-        ///After reboot, choose &quot;Windows 10&quot; in the Boot Menu to start the Windows 10 ARM Setup.
+        ///Now, please, **eject the drive safely** to avoid data corruption issues and insert it into your Raspberry Pi.
+        ///
+        ///After some minutes, the W10 Setup should start.
+        ///
+        ///Remberber, to avoid problems: Don&apos;t plug USB devices until the Setup starts.
         ///Enjoy!.
         /// </summary>
         public static string WindowsDeployedSuccessfully {
